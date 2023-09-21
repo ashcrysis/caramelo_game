@@ -1,7 +1,0 @@
-rootProject.name = 'GurkNukem'
-
-includeBuild ("../litiengine"){
-    dependencySubstitution {
-        substitute module('de.gurkenlabs:litiengine') using project(':litiengine')
-    }
-}
