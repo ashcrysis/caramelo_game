@@ -4,7 +4,7 @@ public class handler {
 
 public static void main(String[] args) {
 	// Create two GameObject instances
-	GameObject object1 = new GameObject(10, 10, 25, 10);
+	GameObject object1 = new GameObject(10, 10, 25, 25);
 	GameObject object2 = new GameObject(25, 25, 30, 30);
 
 	// Check if object1 is touching object2

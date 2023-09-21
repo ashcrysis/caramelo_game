@@ -4,20 +4,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 //game logic testing on java - Asher Gabriela
 
 public class SimpleGame extends JPanel implements ActionListener {
-    private int spriteX = 100; // X pos initial position
-    private int spriteY = 100;   // Y pos initial position
+  
     private int targetY = 100;   // Y destine position
     private int animalForm = 0; // (0,1,2) = (dog,bird,fish)  
     private Timer timer;
-
+    static GameObject player = new GameObject(100,100, 50,50);
+    private int spriteX = player.getX(); // X pos initial position
+    private int spriteY = player.getY();   // Y pos initial position
     public SimpleGame() {
         timer = new Timer(10, this);
         timer.start();
-
+        
+        
         // Set up the window size
         setPreferredSize(new Dimension(400, 400));
                       
@@ -50,13 +51,13 @@ public class SimpleGame extends JPanel implements ActionListener {
         // Draw the sprite according to the current shape (dog, fish or bird)
         if (animalForm == 0) {
             g.setColor(Color.RED);
-            g.fillRect(spriteX, spriteY, 50, 50); // DOG
+            g.fillRect(spriteX, spriteY, player.getWidth(), player.getHeight()); // DOG
         } else if (animalForm == 1) {
             g.setColor(Color.GREEN);
-            g.fillOval(spriteX, spriteY, 50, 50); // BIRD
+            g.fillOval(spriteX, spriteY, player.getWidth(), player.getHeight()); // BIRD
         } else if (animalForm == 2) {
             g.setColor(Color.BLUE);
-            g.fillOval(spriteX, spriteY, 50, 50); // FISH
+            g.fillOval(spriteX, spriteY, player.getWidth(), player.getHeight()); // FISH
         }
     }
 /* FORMA UTILIZANDO SWITCH CASE
@@ -86,17 +87,20 @@ public class SimpleGame extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // Moves the Sprite to the desired position
-        if (spriteY < targetY) {
-            spriteY= spriteY +5;
-        } else if (spriteY > targetY) {
+        if (player.getY() < targetY) {
+        	 spriteY = spriteY + 5;
+            player.setY(spriteY+5); 
+        } else if (player.getY() > targetY) {
             spriteY = spriteY - 5;
+            player.setY(spriteY);
+            
         }
         // Checks the sprite's current position and sets the animal's shape
-        if (spriteY == 100) {
+        if (player.getY() == 100) {
             animalForm = 1; // BIRD
-        } else if (spriteY == 200) {
+        } else if (player.getY() == 200) {
             animalForm = 0; // DOG
-        } else if (spriteY == 300) {
+        } else if (player.getY() == 300) {
             animalForm = 2; // FISH
         }
         repaint();
@@ -110,6 +114,12 @@ public class SimpleGame extends JPanel implements ActionListener {
             frame.pack();
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
+            frame.setLayout(null);
+            JLabel label = new JLabel();
+    		label.setBounds(204, 10, 100, 14);
+    		frame.add(label);
+            label.setText("Posição: " + Integer.toString(player.getY()));
+            
         });
     }
 }
