@@ -41,6 +41,7 @@ public class SimpleGame extends JPanel implements ActionListener {
 
         setFocusable(true);
     }
+    
 
 @Override
     protected void paintComponent(Graphics g) {
