@@ -14,7 +14,23 @@ public class GameObject {
         this.height = height;
     }
 
-    // Method to check if this object is touching another object
+    public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	// Method to check if this object is touching another object
     public boolean isTouching(GameObject otherObject) {
         // Check if this object's bounding box intersects with the other object's bounding box
         return this.x < otherObject.x + otherObject.width &&
