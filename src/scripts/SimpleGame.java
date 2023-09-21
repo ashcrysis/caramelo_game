@@ -102,7 +102,7 @@ public class SimpleGame extends JPanel implements ActionListener {
         });
       
 
-	    while (true) {
+	    while (player.vidas > 0) {
 	        try {
 	            Thread.sleep(1000); // Espera 1 segundo (1000 milissegundos)
 	        } catch (InterruptedException e) {
