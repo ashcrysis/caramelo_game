@@ -1,31 +1,27 @@
-package scripts;
-
-import javax.swing.*;
+package scripts;import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//game logic testing on java - Asher Gabriela
 
 public class SimpleGame extends JPanel implements ActionListener {
-  
-    private int targetY = 100;   // Y destine position
-    private int animalForm = 0; // (0,1,2) = (dog,bird,fish)  
+    private int targetY = 100;
+    private int animalForm = 0;
     private Timer timer;
-    static GameObject player = new GameObject(100,100, 50,50);
-    private int spriteX = player.getX(); // X pos initial position
-    private int spriteY = player.getY();   // Y pos initial position
+    static GameObject player = new GameObject(100, 100, 50, 50);
+    private int spriteX = player.getX();
+    private int spriteY = player.getY();
+    private JLabel label;
+    private static int segundos = 0;
+    private static int pontos = 0;
+
     public SimpleGame() {
         timer = new Timer(10, this);
         timer.start();
-        
-        
-        // Set up the window size
+
         setPreferredSize(new Dimension(400, 400));
-                      
-        // Set the possible positions on the Y Axis
+
         int[] yPositions = {100, 200, 300};
 
-        // Creates an action listener to change the Y position whenever an key is pressed
         addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -41,68 +37,54 @@ public class SimpleGame extends JPanel implements ActionListener {
         });
 
         setFocusable(true);
-    }
-    
 
-@Override
+        // Crie a JLabel e a centralize no JPanel
+        label = new JLabel("Posição: " + player.getY());
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setVerticalAlignment(SwingConstants.TOP);
+
+        setLayout(new BorderLayout());
+        add(label, BorderLayout.CENTER);
+    }
+
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
-        // Draw the sprite according to the current shape (dog, fish or bird)
+
         if (animalForm == 0) {
             g.setColor(Color.RED);
-            g.fillRect(spriteX, spriteY, player.getWidth(), player.getHeight()); // DOG
+            g.fillRect(spriteX, spriteY, player.getWidth(), player.getHeight());
         } else if (animalForm == 1) {
             g.setColor(Color.GREEN);
-            g.fillOval(spriteX, spriteY, player.getWidth(), player.getHeight()); // BIRD
+            g.fillOval(spriteX, spriteY, player.getWidth(), player.getHeight());
         } else if (animalForm == 2) {
             g.setColor(Color.BLUE);
-            g.fillOval(spriteX, spriteY, player.getWidth(), player.getHeight()); // FISH
+            g.fillOval(spriteX, spriteY, player.getWidth(), player.getHeight());
         }
     }
-/* FORMA UTILIZANDO SWITCH CASE
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        switch (animalForm) {
-            case 0: // DOG
-                g.setColor(Color.RED);
-                g.fillRect(spriteX, spriteY, 50, 50);
-                break;
-            case 1: // BIRD
-                g.setColor(Color.GREEN);
-                g.fillOval(spriteX, spriteY, 50, 50);
-                break;
-            case 2: // FISH
-                g.setColor(Color.BLUE);
-                g.fillOval(spriteX, spriteY, 50, 50);
-                break;
-            default:
-                break;
-        }
-    }
-*/
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Moves the Sprite to the desired position
         if (player.getY() < targetY) {
-        	 spriteY = spriteY + 5;
-            player.setY(spriteY+5); 
+            spriteY = spriteY + 5;
+            player.setY(spriteY + 5);
         } else if (player.getY() > targetY) {
             spriteY = spriteY - 5;
             player.setY(spriteY);
-            
         }
-        // Checks the sprite's current position and sets the animal's shape
+
         if (player.getY() == 100) {
-            animalForm = 1; // BIRD
+            animalForm = 1;
         } else if (player.getY() == 200) {
-            animalForm = 0; // DOG
+            animalForm = 0;
         } else if (player.getY() == 300) {
-            animalForm = 2; // FISH
+            animalForm = 2;
         }
+
+        // Atualize o valor da JLabel
+        scoreHandler score = new scoreHandler();
+        label.setText("Pontuação: " + pontos);
+
         repaint();
     }
 
@@ -114,14 +96,29 @@ public class SimpleGame extends JPanel implements ActionListener {
             frame.pack();
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
-            frame.setLayout(null);
-            JLabel label = new JLabel();
-    		label.setBounds(204, 10, 100, 14);
-    		frame.add(label);
-            label.setText("Posição: " + Integer.toString(player.getY()));
+            
+            
             
         });
+      
+
+	    while (true) {
+	        try {
+	            Thread.sleep(1000); // Espera 1 segundo (1000 milissegundos)
+	        } catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
+
+	        segundos++;
+
+	        if (segundos % 1 == 0) {
+	            pontos += 50;
+	            
+	        }
+	        System.out.println(segundos);    
+	        
+	    
+	    }
+        
     }
 }
-
-
