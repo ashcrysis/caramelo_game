@@ -8,9 +8,11 @@ public class SimpleGame extends JPanel implements ActionListener {
     private int targetY = 100;
     private int targetX = -70;
     private int animalForm = 0;
+    private int lastY;
+    private int lastY2;
     private Timer timer;
-    static GameObject obstacle = new GameObject(500,100,50,50);
-    static GameObject obstacle2 = new GameObject(500,200,50,50);
+    static GameObject obstacle = new GameObject(500,200,50,50);
+    static GameObject obstacle2 = new GameObject(500,300,50,50);
     static GameObject player = new GameObject(100, 100, 50, 50);
     static GameObject[] obstacles = {obstacle,obstacle2};
     private int spriteX = player.getX();
@@ -163,7 +165,11 @@ public class SimpleGame extends JPanel implements ActionListener {
         	String spriteOYaux = Integer.toString(spriteOY) + "00";
         	spriteOY = Integer.parseInt(spriteOYaux);
         	while (spriteOY == spriteOY2) {
+        		
         		spriteOY = rand.nextInt(1,4);
+        		while (spriteOY == lastY) {
+        			spriteOY = rand.nextInt(1,4);
+        		}
         		spriteOYaux = Integer.toString(spriteOY) + "00";
         		spriteOY = Integer.parseInt(spriteOYaux);
         	}
@@ -187,6 +193,9 @@ public class SimpleGame extends JPanel implements ActionListener {
         	spriteOY2 = Integer.parseInt(spriteOYaux2);
         	while (spriteOY2 == spriteOY) {
         		spriteOY2 = rand.nextInt(1,4);
+        		while (spriteOY2 == lastY2) {
+        			spriteOY2 = rand.nextInt(1,4);
+        		}
         		spriteOYaux2 = Integer.toString(spriteOY2) + "00";
         		spriteOY2 = Integer.parseInt(spriteOYaux2);
         	}
