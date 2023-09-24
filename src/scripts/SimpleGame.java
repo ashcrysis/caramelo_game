@@ -11,6 +11,8 @@ public class SimpleGame extends JPanel implements ActionListener {
     private int lastY;
     private int lastY2;
     private Timer timer;
+    private int obstacle2Type = 3;
+    private int obstacleType  =  2;
     static GameObject obstacle = new GameObject(500,200,50,50);
     static GameObject obstacle2 = new GameObject(500,300,50,50);
     static GameObject player = new GameObject(100, 100, 50, 50);
@@ -98,34 +100,34 @@ public class SimpleGame extends JPanel implements ActionListener {
             g.fillOval(spriteX, spriteY, player.getWidth(), player.getHeight());
         }
         
-       switch (obstacle.getY()) {
-    	   case 100:
+       switch (obstacleType){
+    	   case 1:
     		   g.setColor(Color.DARK_GRAY);
     		   g.fillRect(obstacle.getX(), obstacle.getY(), obstacle.getWidth(), obstacle.getHeight());
     		   break;
-    	   case 200:
-    		   g.setColor(Color.DARK_GRAY);
+    	   case 2:
+    		   g.setColor(Color.CYAN);
     		   g.fillRect(obstacle.getX(), obstacle.getY(), obstacle.getWidth(), obstacle.getHeight());
     		   break;
-    	   case 300:
-    		   g.setColor(Color.DARK_GRAY);
+    	   case 3:
+    		   g.setColor(Color.MAGENTA);
     		   g.fillRect(obstacle.getX(), obstacle.getY(), obstacle.getWidth(), obstacle.getHeight());
     		   break;
     		   
        }
        
        
-       switch (obstacle2.getY()) {
-    	   case 100:
+       switch (obstacle2Type) {
+    	   case 1:
     		   g.setColor(Color.DARK_GRAY);
     		   g.fillRect(obstacle2.getX(), obstacle2.getY(), obstacle2.getWidth(), obstacle2.getHeight());
     		   break;
-    	   case 200:
-    		   g.setColor(Color.DARK_GRAY);
+    	   case 2:
+    		   g.setColor(Color.CYAN);
     		   g.fillRect(obstacle2.getX(), obstacle2.getY(), obstacle2.getWidth(), obstacle2.getHeight());
     		   break;
-    	   case 300:
-    		   g.setColor(Color.DARK_GRAY);
+    	   case 3:
+    		   g.setColor(Color.MAGENTA);
     		   g.fillRect(obstacle2.getX(), obstacle2.getY(), obstacle2.getWidth(), obstacle2.getHeight());
     		   break;
     		   
@@ -162,6 +164,7 @@ public class SimpleGame extends JPanel implements ActionListener {
         	spriteOX = 620;
         	Random rand = new Random();
         	spriteOY = rand.nextInt(1,4);
+        	obstacleType = spriteOY;
         	String spriteOYaux = Integer.toString(spriteOY) + "00";
         	spriteOY = Integer.parseInt(spriteOYaux);
         	while (spriteOY == spriteOY2) {
@@ -169,11 +172,13 @@ public class SimpleGame extends JPanel implements ActionListener {
         		spriteOY = rand.nextInt(1,4);
         		while (spriteOY == lastY) {
         			spriteOY = rand.nextInt(1,4);
+        			obstacleType = spriteOY;
         		}
         		spriteOYaux = Integer.toString(spriteOY) + "00";
+        		obstacleType = spriteOY;
         		spriteOY = Integer.parseInt(spriteOYaux);
         	}
-        	System.out.println(spriteOYaux);
+        	
         	obstacle.setY(spriteOY2);
         	obstacle.setX(spriteOX);
         	
@@ -190,16 +195,18 @@ public class SimpleGame extends JPanel implements ActionListener {
         	Random rand = new Random();
         	spriteOY2 = rand.nextInt(1,4);
         	String spriteOYaux2 = Integer.toString(spriteOY2) + "00";
+        	obstacle2Type = spriteOY2;
         	spriteOY2 = Integer.parseInt(spriteOYaux2);
         	while (spriteOY2 == spriteOY) {
         		spriteOY2 = rand.nextInt(1,4);
         		while (spriteOY2 == lastY2) {
         			spriteOY2 = rand.nextInt(1,4);
+        			obstacle2Type = spriteOY2;
         		}
         		spriteOYaux2 = Integer.toString(spriteOY2) + "00";
+        		obstacle2Type = spriteOY2;
         		spriteOY2 = Integer.parseInt(spriteOYaux2);
         	}
-        	System.out.println(spriteOYaux2);
         	obstacle2.setY(spriteOY2);
         	obstacle2.setX(spriteOX);
         	
