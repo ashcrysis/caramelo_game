@@ -13,6 +13,7 @@ public class GameObject {
         this.width = width;
         this.height = height;
     }
+   
 
     public int getX() {
 		return x;

@@ -13,7 +13,7 @@ public class SimpleGame extends JPanel implements ActionListener {
     private JLabel label;
     private static int segundos = 0;
     private static int pontos = 0;
-
+    
     public SimpleGame() {
         timer = new Timer(10, this);
         timer.start();
@@ -26,15 +26,33 @@ public class SimpleGame extends JPanel implements ActionListener {
             @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 int key = evt.getKeyCode();
-                if (key == java.awt.event.KeyEvent.VK_1) {
-                    targetY = yPositions[0];
-                } else if (key == java.awt.event.KeyEvent.VK_2) {
-                    targetY = yPositions[1];
-                } else if (key == java.awt.event.KeyEvent.VK_3) {
-                    targetY = yPositions[2];
+                
+                if (key == java.awt.event.KeyEvent.VK_UP) {
+                	String pos = Integer.toString(player.getY());// recebendo posição atual do jogador como String
+                	pos = pos.replace("0",""); // removendo os zeros, para ter um numero entre 1,2,3 
+                	int pos2 = Integer.parseInt(pos) - 1; // criando variavel auxiliar subtraindo um ( já que as variaveis de posicao sao 0 , 1 ,2
+                	if (player.getY() != yPositions[0]) {
+                		pos2 = pos2 - 1;
+                		targetY = yPositions[pos2];
+                	}
+                	
                 }
+                if (key == java.awt.event.KeyEvent.VK_DOWN) {
+                	String pos = Integer.toString(player.getY());// recebendo posição atual do jogador como String
+                	pos = pos.replace("0",""); // removendo os zeros, para ter um numero entre 1,2,3 
+                	int pos2 = Integer.parseInt(pos) - 1; // criando variavel auxiliar subtraindo um ( já que as variaveis de posicao sao 0 , 1 ,2
+                	if (player.getY() != yPositions[2]) {
+                		pos2 =pos2 + 1;
+                		targetY = yPositions[pos2];
+                		System.out.println(pos2);
+                	}
+                	
+                }
+                	
+                }
+                
             }
-        });
+        );
 
         setFocusable(true);
 
@@ -115,7 +133,7 @@ public class SimpleGame extends JPanel implements ActionListener {
 	            pontos += 50;
 	            
 	        }
-	        System.out.println(segundos);    
+	        //System.out.println(segundos);    
 	        
 	    
 	    }
