@@ -10,10 +10,13 @@ public class SimpleGame extends JPanel implements ActionListener {
     private int animalForm = 0;
     private Timer timer;
     static GameObject obstacle = new GameObject(500,100,50,50);
+    static GameObject obstacle2 = new GameObject(500,200,50,50);
     static GameObject player = new GameObject(100, 100, 50, 50);
+    static GameObject[] obstacles = {obstacle,obstacle2};
     private int spriteX = player.getX();
     private int spriteOX = obstacle.getX();
     private int spriteOY = obstacle.getY();
+    private int spriteOY2 = obstacle2.getY();
     private int spriteY = player.getY();
     private JLabel label;
     private static int segundos = 0;
@@ -38,7 +41,11 @@ public class SimpleGame extends JPanel implements ActionListener {
                 	int pos2 = Integer.parseInt(pos) - 1; // criando variavel auxiliar subtraindo um ( já que as variaveis de posicao sao 0 , 1 ,2
                 	if (player.getY() != yPositions[0]) {
                 		pos2 = pos2 - 1;
-                		targetY = yPositions[pos2];
+                		try {
+                    		targetY = yPositions[pos2];
+                    		}catch (Exception e) {
+                    			
+                    		}
                 	}
                 	
                 }
@@ -48,7 +55,11 @@ public class SimpleGame extends JPanel implements ActionListener {
                 	int pos2 = Integer.parseInt(pos) - 1; // criando variavel auxiliar subtraindo um ( já que as variaveis de posicao sao 0 , 1 ,2
                 	if (player.getY() != yPositions[2]) {
                 		pos2 =pos2 + 1;
+                		try {
                 		targetY = yPositions[pos2];
+                		}catch (Exception e) {
+                			
+                		}
                 		
                 	}
                 	
@@ -100,6 +111,24 @@ public class SimpleGame extends JPanel implements ActionListener {
     		   break;
     		   
        }
+       
+       
+       switch (obstacle2.getY()) {
+    	   case 100:
+    		   g.setColor(Color.DARK_GRAY);
+    		   g.fillRect(obstacle2.getX(), obstacle2.getY(), obstacle2.getWidth(), obstacle2.getHeight());
+    		   break;
+    	   case 200:
+    		   g.setColor(Color.DARK_GRAY);
+    		   g.fillRect(obstacle2.getX(), obstacle2.getY(), obstacle2.getWidth(), obstacle2.getHeight());
+    		   break;
+    	   case 300:
+    		   g.setColor(Color.DARK_GRAY);
+    		   g.fillRect(obstacle2.getX(), obstacle2.getY(), obstacle2.getWidth(), obstacle2.getHeight());
+    		   break;
+    		   
+       }
+       
     }
 
     @Override
@@ -123,7 +152,7 @@ public class SimpleGame extends JPanel implements ActionListener {
         //objects handler
         
         if (obstacle.getX() > targetX) {
-            spriteOX = spriteOX - 5;
+            spriteOX = spriteOX - 3;
             obstacle.setX(spriteOX);
             
         } 
@@ -133,12 +162,41 @@ public class SimpleGame extends JPanel implements ActionListener {
         	spriteOY = rand.nextInt(1,4);
         	String spriteOYaux = Integer.toString(spriteOY) + "00";
         	spriteOY = Integer.parseInt(spriteOYaux);
+        	while (spriteOY == spriteOY2) {
+        		spriteOY = rand.nextInt(1,4);
+        		spriteOYaux = Integer.toString(spriteOY) + "00";
+        		spriteOY = Integer.parseInt(spriteOYaux);
+        	}
         	System.out.println(spriteOYaux);
-        	obstacle.setY(spriteOY);
+        	obstacle.setY(spriteOY2);
         	obstacle.setX(spriteOX);
         	
         }
      
+        
+        if (obstacle2.getX() > targetX) {
+            spriteOX = spriteOX - 3;
+            obstacle2.setX(spriteOX);
+            
+        } 
+        if (obstacle2.getX() == (targetX)) {
+        	spriteOX = 620;
+        	Random rand = new Random();
+        	spriteOY2 = rand.nextInt(1,4);
+        	String spriteOYaux2 = Integer.toString(spriteOY2) + "00";
+        	spriteOY2 = Integer.parseInt(spriteOYaux2);
+        	while (spriteOY2 == spriteOY) {
+        		spriteOY2 = rand.nextInt(1,4);
+        		spriteOYaux2 = Integer.toString(spriteOY2) + "00";
+        		spriteOY2 = Integer.parseInt(spriteOYaux2);
+        	}
+        	System.out.println(spriteOYaux2);
+        	obstacle2.setY(spriteOY2);
+        	obstacle2.setX(spriteOX);
+        	
+        }
+        
+        
 
         // Atualize o valor da JLabel
         scoreHandler score = new scoreHandler();
