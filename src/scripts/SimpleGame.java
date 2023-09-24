@@ -6,13 +6,14 @@ import java.util.Random;
 
 public class SimpleGame extends JPanel implements ActionListener {
     private int targetY = 100;
-    private int targetX = -50;
+    private int targetX = -70;
     private int animalForm = 0;
     private Timer timer;
     static GameObject obstacle = new GameObject(500,100,50,50);
     static GameObject player = new GameObject(100, 100, 50, 50);
     private int spriteX = player.getX();
     private int spriteOX = obstacle.getX();
+    private int spriteOY = obstacle.getY();
     private int spriteY = player.getY();
     private JLabel label;
     private static int segundos = 0;
@@ -32,12 +33,11 @@ public class SimpleGame extends JPanel implements ActionListener {
                 int key = evt.getKeyCode();
                 
                 if (key == java.awt.event.KeyEvent.VK_UP) {
-                	String pos = Integer.toString(player.getY());// recebendo posição atual do jogador como String
-                	pos = pos.replace("0",""); // removendo os zeros, para ter um numero entre 1,2,3 
+                	String pos = Integer.toString(player.getY());	// recebendo posição atual do jogador como String
+                	pos = pos.replace("0",""); 	// removendo os zeros, para ter um numero entre 1,2,3 
                 	int pos2 = Integer.parseInt(pos) - 1; // criando variavel auxiliar subtraindo um ( já que as variaveis de posicao sao 0 , 1 ,2
                 	if (player.getY() != yPositions[0]) {
                 		pos2 = pos2 - 1;
-                		System.out.println(pos2);
                 		targetY = yPositions[pos2];
                 	}
                 	
@@ -124,15 +124,29 @@ public class SimpleGame extends JPanel implements ActionListener {
         
         if (obstacle.getX() > targetX) {
             spriteOX = spriteOX - 5;
-            obstacle.setX(spriteOX + 5);
+            obstacle.setX(spriteOX);
+            
         } 
-        
+        if (obstacle.getX() == (targetX)) {
+        	spriteOX = 620;
+        	Random rand = new Random();
+        	spriteOY = rand.nextInt(1,4);
+        	String spriteOYaux = Integer.toString(spriteOY) + "00";
+        	spriteOY = Integer.parseInt(spriteOYaux);
+        	System.out.println(spriteOYaux);
+        	obstacle.setY(spriteOY);
+        	obstacle.setX(spriteOX);
+        	
+        }
+     
 
         // Atualize o valor da JLabel
         scoreHandler score = new scoreHandler();
         label.setText("Pontuação: " + pontos);
 
         repaint();
+
+        
     }
 
     public static void main(String[] args) {
