@@ -2,13 +2,17 @@ package scripts;import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class SimpleGame extends JPanel implements ActionListener {
     private int targetY = 100;
+    private int targetX = -50;
     private int animalForm = 0;
     private Timer timer;
+    static GameObject obstacle = new GameObject(500,100,50,50);
     static GameObject player = new GameObject(100, 100, 50, 50);
     private int spriteX = player.getX();
+    private int spriteOX = obstacle.getX();
     private int spriteY = player.getY();
     private JLabel label;
     private static int segundos = 0;
@@ -18,7 +22,7 @@ public class SimpleGame extends JPanel implements ActionListener {
         timer = new Timer(10, this);
         timer.start();
 
-        setPreferredSize(new Dimension(400, 400));
+        setPreferredSize(new Dimension(600, 400));
 
         int[] yPositions = {100, 200, 300};
 
@@ -33,6 +37,7 @@ public class SimpleGame extends JPanel implements ActionListener {
                 	int pos2 = Integer.parseInt(pos) - 1; // criando variavel auxiliar subtraindo um ( já que as variaveis de posicao sao 0 , 1 ,2
                 	if (player.getY() != yPositions[0]) {
                 		pos2 = pos2 - 1;
+                		System.out.println(pos2);
                 		targetY = yPositions[pos2];
                 	}
                 	
@@ -44,7 +49,7 @@ public class SimpleGame extends JPanel implements ActionListener {
                 	if (player.getY() != yPositions[2]) {
                 		pos2 =pos2 + 1;
                 		targetY = yPositions[pos2];
-                		System.out.println(pos2);
+                		
                 	}
                 	
                 }
@@ -79,10 +84,27 @@ public class SimpleGame extends JPanel implements ActionListener {
             g.setColor(Color.BLUE);
             g.fillOval(spriteX, spriteY, player.getWidth(), player.getHeight());
         }
+        
+       switch (obstacle.getY()) {
+    	   case 100:
+    		   g.setColor(Color.DARK_GRAY);
+    		   g.fillRect(obstacle.getX(), obstacle.getY(), obstacle.getWidth(), obstacle.getHeight());
+    		   break;
+    	   case 200:
+    		   g.setColor(Color.DARK_GRAY);
+    		   g.fillRect(obstacle.getX(), obstacle.getY(), obstacle.getWidth(), obstacle.getHeight());
+    		   break;
+    	   case 300:
+    		   g.setColor(Color.DARK_GRAY);
+    		   g.fillRect(obstacle.getX(), obstacle.getY(), obstacle.getWidth(), obstacle.getHeight());
+    		   break;
+    		   
+       }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+    	//player handler
         if (player.getY() < targetY) {
             spriteY = spriteY + 5;
             player.setY(spriteY + 5);
@@ -98,6 +120,13 @@ public class SimpleGame extends JPanel implements ActionListener {
         } else if (player.getY() == 300) {
             animalForm = 2;
         }
+        //objects handler
+        
+        if (obstacle.getX() > targetX) {
+            spriteOX = spriteOX - 5;
+            obstacle.setX(spriteOX + 5);
+        } 
+        
 
         // Atualize o valor da JLabel
         scoreHandler score = new scoreHandler();
@@ -132,6 +161,11 @@ public class SimpleGame extends JPanel implements ActionListener {
 	        if (segundos % 1 == 0) {
 	            pontos += 50;
 	            
+	        }
+	        
+	        if (segundos % 3 == 0) {
+	           //logica de spawnar gameobstacle
+	        	
 	        }
 	        //System.out.println(segundos);    
 	        
