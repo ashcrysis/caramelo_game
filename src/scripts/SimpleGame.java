@@ -170,16 +170,12 @@ public class SimpleGame extends JPanel implements ActionListener {
         	while (spriteOY == spriteOY2) {
         		
         		spriteOY = rand.nextInt(1,4);
-        		while (spriteOY == lastY) {
-        			spriteOY = rand.nextInt(1,4);
-        			obstacleType = spriteOY;
-        		}
         		spriteOYaux = Integer.toString(spriteOY) + "00";
         		obstacleType = spriteOY;
         		spriteOY = Integer.parseInt(spriteOYaux);
         	}
-        	
-        	obstacle.setY(spriteOY2);
+     
+        	obstacle.setY(spriteOY);
         	obstacle.setX(spriteOX);
         	
         }
@@ -199,14 +195,11 @@ public class SimpleGame extends JPanel implements ActionListener {
         	spriteOY2 = Integer.parseInt(spriteOYaux2);
         	while (spriteOY2 == spriteOY) {
         		spriteOY2 = rand.nextInt(1,4);
-        		while (spriteOY2 == lastY2) {
-        			spriteOY2 = rand.nextInt(1,4);
-        			obstacle2Type = spriteOY2;
-        		}
         		spriteOYaux2 = Integer.toString(spriteOY2) + "00";
         		obstacle2Type = spriteOY2;
         		spriteOY2 = Integer.parseInt(spriteOYaux2);
         	}
+        	
         	obstacle2.setY(spriteOY2);
         	obstacle2.setX(spriteOX);
         	
