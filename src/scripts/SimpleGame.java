@@ -12,8 +12,8 @@ public class SimpleGame extends JPanel implements ActionListener {
     private int lastY2;
     private Timer timer;
     private int obstacle2Type = 3;
-    private int obstacleType  =  2;
-    static GameObject obstacle = new GameObject(500,200,50,50);
+    private int obstacleType  =  1;
+    static GameObject obstacle = new GameObject(500,100,50,50);
     static GameObject obstacle2 = new GameObject(500,300,50,50);
     static GameObject player = new GameObject(100, 100, 50, 50);
     static GameObject[] obstacles = {obstacle,obstacle2};
