@@ -16,7 +16,7 @@ public class SimpleGame extends JPanel implements ActionListener {
     static GameObject obstacle = new GameObject(500,100,50,50);
     static GameObject obstacle2 = new GameObject(500,300,50,50);
     static GameObject player = new GameObject(100, 100, 50, 50);
-    static GameObject[] obstacles = {obstacle,obstacle2};
+    static GameObject[] obstacles = {obstacle , obstacle2};
     private int spriteX = player.getX();
     private int spriteOX = obstacle.getX();
     private int spriteOY = obstacle.getY();
@@ -25,6 +25,7 @@ public class SimpleGame extends JPanel implements ActionListener {
     private JLabel label;
     private static int segundos = 0;
     private static int pontos = 0;
+    private static boolean colisao = true;
     
     public SimpleGame() {
         timer = new Timer(10, this);
@@ -39,7 +40,7 @@ public class SimpleGame extends JPanel implements ActionListener {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 int key = evt.getKeyCode();
                 
-                if (key == java.awt.event.KeyEvent.VK_UP) {
+                if (key == java.awt.event.KeyEvent.VK_UP && player.vidas > 0) {
                 	String pos = Integer.toString(player.getY());	// recebendo posição atual do jogador como String
                 	pos = pos.replace("0",""); 	// removendo os zeros, para ter um numero entre 1,2,3 
                 	int pos2 = Integer.parseInt(pos) - 1; // criando variavel auxiliar subtraindo um ( já que as variaveis de posicao sao 0 , 1 ,2
@@ -53,7 +54,7 @@ public class SimpleGame extends JPanel implements ActionListener {
                 	}
                 	
                 }
-                if (key == java.awt.event.KeyEvent.VK_DOWN) {
+                if (key == java.awt.event.KeyEvent.VK_DOWN && player.vidas > 0) {
                 	String pos = Integer.toString(player.getY());// recebendo posição atual do jogador como String
                 	pos = pos.replace("0",""); // removendo os zeros, para ter um numero entre 1,2,3 
                 	int pos2 = Integer.parseInt(pos) - 1; // criando variavel auxiliar subtraindo um ( já que as variaveis de posicao sao 0 , 1 ,2
@@ -155,7 +156,7 @@ public class SimpleGame extends JPanel implements ActionListener {
         }
         //objects handler
         
-        if (obstacle.getX() > targetX) {
+        if (obstacle.getX() > targetX && (  player.vidas > 0 )){
             spriteOX = spriteOX - 3;
             obstacle.setX(spriteOX);
             
@@ -164,53 +165,76 @@ public class SimpleGame extends JPanel implements ActionListener {
         	spriteOX = 620;
         	Random rand = new Random();
         	spriteOY = rand.nextInt(1,4);
+        	lastY = spriteOY;
         	obstacleType = spriteOY;
         	String spriteOYaux = Integer.toString(spriteOY) + "00";
         	spriteOY = Integer.parseInt(spriteOYaux);
-        	while (spriteOY == spriteOY2) {
+        	
+        	while (spriteOY == spriteOY2 && spriteOY != lastY) {
         		
         		spriteOY = rand.nextInt(1,4);
         		spriteOYaux = Integer.toString(spriteOY) + "00";
         		obstacleType = spriteOY;
         		spriteOY = Integer.parseInt(spriteOYaux);
         	}
-     
+        	lastY = spriteOY;
         	obstacle.setY(spriteOY);
         	obstacle.setX(spriteOX);
         	
         }
      
-        
-        if (obstacle2.getX() > targetX) {
+        for ( int i = 0 ; i < obstacles.length ; i++) {
+            if (player.isTouching(obstacles[i]) && colisao == true){
+            	System.out.println("O jogador está tocando o objeto na posição " + obstacles[i].getY());
+            }
+            
+            }
+        if (obstacle2.getX() > targetX && (  player.vidas > 0 )) {
             spriteOX = spriteOX - 3;
             obstacle2.setX(spriteOX);
+            
             
         } 
         if (obstacle2.getX() == (targetX)) {
         	spriteOX = 620;
         	Random rand = new Random();
         	spriteOY2 = rand.nextInt(1,4);
+        	lastY2 = spriteOY2;
         	String spriteOYaux2 = Integer.toString(spriteOY2) + "00";
         	obstacle2Type = spriteOY2;
         	spriteOY2 = Integer.parseInt(spriteOYaux2);
-        	while (spriteOY2 == spriteOY) {
+        	while (spriteOY2 == spriteOY && spriteOY2 != lastY2) {
         		spriteOY2 = rand.nextInt(1,4);
         		spriteOYaux2 = Integer.toString(spriteOY2) + "00";
         		obstacle2Type = spriteOY2;
         		spriteOY2 = Integer.parseInt(spriteOYaux2);
         	}
-        	
+        	lastY2 = spriteOY2;
         	obstacle2.setY(spriteOY2);
         	obstacle2.setX(spriteOX);
         	
+        	
         }
         
+        if (player.isTouching(obstacle) && colisao == true){
+        	System.out.println("Player está colidindo com o obstaculo 1");
+        	colisao = false;
+        	player.vidas = player.vidas -= 1;
+        	System.out.println("Vidas: " + player.vidas);
+        }       
         
+        if (player.isTouching(obstacle2) && colisao == true){
+        	System.out.println("Player está colidindo com o obstaculo 2");
+        	colisao = false;
+        	player.vidas = player.vidas -= 1;
+        	System.out.println("Vidas: " + player.vidas);
+        }          
+      
 
         // Atualize o valor da JLabel
         scoreHandler score = new scoreHandler();
         label.setText("Pontuação: " + pontos);
-
+        
         repaint();
 
         
@@ -244,9 +268,9 @@ public class SimpleGame extends JPanel implements ActionListener {
 	            
 	        }
 	        
-	        if (segundos % 3 == 0) {
+	        if (segundos % 2 == 0) {
 	           //logica de spawnar gameobstacle
-	        	
+	        	colisao = true;
 	        }
 	        //System.out.println(segundos);    
 	        
