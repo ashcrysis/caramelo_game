@@ -5,7 +5,6 @@ public class GameObject {
     private int y; // Y coordinate
     private int width; // Width of the object
     private int height; // Height of the object
-    public int vidas = 3;
     // Constructor
     public GameObject(int x, int y, int width, int height) {
         this.x = x;

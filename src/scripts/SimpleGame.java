@@ -15,7 +15,7 @@ public class SimpleGame extends JPanel implements ActionListener {
     private int obstacleType  =  1;
     static GameObject obstacle = new GameObject(500,100,50,50);
     static GameObject obstacle2 = new GameObject(500,300,50,50);
-    static GameObject player = new GameObject(100, 100, 50, 50);
+    static Player player = new Player(100, 100, 50, 50);
     static GameObject[] obstacles = {obstacle , obstacle2};
     private int spriteX = player.getX();
     private int spriteOX = obstacle.getX();
