@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class SimpleGame extends JPanel implements ActionListener {
-    // player related var's
+    // Player related variables
     private int targetY = 100;
     private int targetX = -70;
     private int animalForm = 0;
@@ -19,17 +19,17 @@ public class SimpleGame extends JPanel implements ActionListener {
     private int spriteX = player.getX();
     private int spriteY = player.getY();
     private int MIN_Y_DISTANCE = 100;
-    // scene related var's
+
+    // Scene related variables
     private Timer timer;
-    private int obstacleType = 1;
+    private int obstacleType;
     static GameObject obstacle = new GameObject(500, 100, 50, 50);
     static GameObject obstacle2 = new GameObject(500, 300, 50, 50);
     static GameObject[] obstacles = { obstacle, obstacle2 };
-    private int spriteOX = obstacle.getX();
     private JLabel label;
-    JLabel background;
+    private JLabel background;
 
-    // handlers var's
+    // Handlers variables
     private static int segundos = 0;
     private static int pontos = 0;
     private static boolean colisao = true;
@@ -100,22 +100,7 @@ public class SimpleGame extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         targetY = player.targetY;
 
-        // player handler
-        if (player.getY() < targetY) {
-            spriteY = spriteY + 5;
-            player.setY(spriteY + 5);
-        } else if (player.getY() > targetY) {
-            spriteY = spriteY - 5;
-            player.setY(spriteY);
-        }
-
-        if (player.getY() == 100) {
-            animalForm = 1;
-        } else if (player.getY() == 200) {
-            animalForm = 0;
-        } else if (player.getY() == 300) {
-            animalForm = 2;
-        }
+        updatePlayerPosition(targetY);
 
         updateObstaclePosition(obstacle, obstacle2, lastY, 6);
         updateObstaclePosition(obstacle2, obstacle, lastY2, 6);
@@ -198,6 +183,24 @@ public class SimpleGame extends JPanel implements ActionListener {
         }
     }
 
+    private void updatePlayerPosition(int targetY) {
+        if (player.getY() < targetY) {
+            spriteY += 5;
+            player.setY(spriteY);
+        } else if (player.getY() > targetY) {
+            spriteY -= 5;
+            player.setY(spriteY);
+        }
+
+        if (player.getY() == 100) {
+            animalForm = 1;
+        } else if (player.getY() == 200) {
+            animalForm = 0;
+        } else if (player.getY() == 300) {
+            animalForm = 2;
+        }
+    }
+
     private int getRandomYPosition(int currentY, int lastY) {
         Random rand = new Random();
         int newY = rand.nextInt(3) + 1;
@@ -206,9 +209,7 @@ public class SimpleGame extends JPanel implements ActionListener {
         while (newY == currentY || newY == lastY) {
             newY = rand.nextInt(3) + 1;
         }
-        System.out.println("lastY:" + lastY);
         lastY = newY;
-        System.out.println("newY:" + newY);
         return Integer.parseInt(Integer.toString(newY) + "00");
     }
 
