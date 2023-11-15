@@ -18,17 +18,14 @@ public class SimpleGame extends JPanel implements ActionListener {
     static Player player = new Player(100, 100, 50, 50);
     private int spriteX = player.getX();
     private int spriteY = player.getY();
-
+    private int MIN_Y_DISTANCE = 100;
     // scene related var's
     private Timer timer;
-    private int obstacle2Type = 3;
     private int obstacleType = 1;
     static GameObject obstacle = new GameObject(500, 100, 50, 50);
     static GameObject obstacle2 = new GameObject(500, 300, 50, 50);
     static GameObject[] obstacles = { obstacle, obstacle2 };
     private int spriteOX = obstacle.getX();
-    private int spriteOY = obstacle.getY();
-    private int spriteOY2 = obstacle2.getY();
     private JLabel label;
     JLabel background;
 
@@ -119,20 +116,11 @@ public class SimpleGame extends JPanel implements ActionListener {
         } else if (player.getY() == 300) {
             animalForm = 2;
         }
-        // objects handler
 
-        for (int i = 0; i < obstacles.length; i++) {
-            if (player.isTouching(obstacles[i]) && colisao == true) {
-                System.out.println("O jogador está tocando o objeto na posição " + obstacles[i].getY());
-            }
+        updateObstaclePosition(obstacle, obstacle2, lastY, 6);
+        updateObstaclePosition(obstacle2, obstacle, lastY2, 6);
 
-        }
-        updateObstaclePosition(obstacle);
-        updateObstaclePosition(obstacle2);
-        // Call for obstacle
         handleCollision(obstacle);
-
-        // Call for obstacle2
         handleCollision(obstacle2);
 
         // Atualize o valor da JLabel
@@ -188,19 +176,25 @@ public class SimpleGame extends JPanel implements ActionListener {
         }
     }
 
-    private void updateObstaclePosition(GameObject obstacle) {
+    private void updateObstaclePosition(GameObject obstacle, GameObject otherObstacle, int lastY, int speed) {
         if (obstacle.getX() > targetX && player.vidas > 0) {
-            spriteOX -= 3;
-            obstacle.setX(spriteOX);
+            obstacle.setX(obstacle.getX() - speed);
         }
 
-        if (obstacle2.getX() == targetX) {
-            spriteOX = 620;
+        if (obstacle.getX() == targetX) {
+            obstacle.setX(620);
             Random rand = new Random();
-            spriteOY2 = getRandomYPosition(spriteOY2, lastY2);
-            obstacle2Type = spriteOY2;
-            obstacle2.setY(spriteOY2);
-            obstacle2.setX(spriteOX);
+
+            int pos = obstacle.getY();
+            pos = getRandomYPosition(pos, lastY);
+
+            // Ensure the new Y position is different from the other obstacle
+            if (Math.abs(pos - otherObstacle.getY()) < MIN_Y_DISTANCE) {
+                pos = getRandomYPosition(pos, otherObstacle.getY());
+            }
+
+            obstacle.setType(obstacleType);
+            obstacle.setY(pos);
         }
     }
 
@@ -208,11 +202,14 @@ public class SimpleGame extends JPanel implements ActionListener {
         Random rand = new Random();
         int newY = rand.nextInt(3) + 1;
 
-        while (newY == currentY && newY != lastY) {
+        // Ensure newY is different from currentY and lastY
+        while (newY == currentY || newY == lastY) {
             newY = rand.nextInt(3) + 1;
         }
-
-        lastY2 = newY;
+        System.out.println("lastY:" + lastY);
+        lastY = newY;
+        System.out.println("newY:" + newY);
         return Integer.parseInt(Integer.toString(newY) + "00");
     }
+
 }
