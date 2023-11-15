@@ -174,10 +174,6 @@ public class SimpleGame extends JPanel implements ActionListener {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Caramelo Adventures : Três espiritos, uma missão!");
-            // Load image from the classpath
-
-            // Set the icon image
-
             SimpleGame game = new SimpleGame();
             frame.add(game);
             game.addKeyListener(player);
