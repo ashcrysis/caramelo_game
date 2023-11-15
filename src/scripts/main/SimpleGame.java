@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class SimpleGame extends JPanel implements ActionListener {
@@ -41,48 +42,6 @@ public class SimpleGame extends JPanel implements ActionListener {
         timer.start();
 
         setPreferredSize(new Dimension(600, 400));
-
-        int[] yPositions = { 100, 200, 300 };
-
-        addKeyListener(new java.awt.event.KeyAdapter() {
-            @Override
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                int key = evt.getKeyCode();
-
-                if (key == java.awt.event.KeyEvent.VK_UP && player.vidas > 0) {
-                    String pos = Integer.toString(player.getY());
-                    pos = pos.replace("0", "");
-                    int pos2 = Integer.parseInt(pos) - 1;
-                    if (player.getY() != yPositions[0]) {
-                        pos2 = pos2 - 1;
-                        try {
-                            targetY = yPositions[pos2];
-                        } catch (Exception e) {
-
-                        }
-                    }
-
-                }
-                if (key == java.awt.event.KeyEvent.VK_DOWN && player.vidas > 0) {
-                    String pos = Integer.toString(player.getY());
-                    pos = pos.replace("0", "");
-                    int pos2 = Integer.parseInt(pos) - 1;
-                    if (player.getY() != yPositions[2]) {
-                        pos2 = pos2 + 1;
-                        try {
-                            targetY = yPositions[pos2];
-                        } catch (Exception e) {
-
-                        }
-
-                    }
-
-                }
-
-            }
-
-        });
-
         setFocusable(true);
 
         label = new JLabel("Posição: " + player.getY());
@@ -123,17 +82,14 @@ public class SimpleGame extends JPanel implements ActionListener {
             switch (obstacle.getY()) {
 
                 case 100:
-                    System.out.println("Objeto na lane 1");
                     g.setColor(Color.DARK_GRAY);
                     g.fillRect(obstacle.getX(), obstacle.getY(), obstacle.getWidth(), obstacle.getHeight());
                     break;
                 case 200:
-                    System.out.println("Objeto na lane 2");
                     g.setColor(Color.ORANGE);
                     g.fillRect(obstacle.getX(), obstacle.getY(), obstacle.getWidth(), obstacle.getHeight());
                     break;
                 case 300:
-                    System.out.println("Objeto na lane 3");
                     g.setColor(Color.CYAN);
                     g.fillRect(obstacle.getX(), obstacle.getY(), obstacle.getWidth(), obstacle.getHeight());
                     break;
@@ -145,6 +101,7 @@ public class SimpleGame extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        targetY = player.targetY;
 
         // player handler
         if (player.getY() < targetY) {
@@ -248,6 +205,7 @@ public class SimpleGame extends JPanel implements ActionListener {
             JFrame frame = new JFrame("Simple Game");
             SimpleGame game = new SimpleGame();
             frame.add(game);
+            game.addKeyListener(player);
             frame.pack();
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
