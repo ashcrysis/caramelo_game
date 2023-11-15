@@ -52,8 +52,14 @@ public class SimpleGame extends JPanel implements ActionListener {
     ImageIcon ded_icon = new ImageIcon("src\\scripts\\main\\res\\ded (1).png");
     Image ded_imagem = ded_icon.getImage();
 
-    ImageIcon background_icon = new ImageIcon("src\\scripts\\main\\res\\mapa-feio.gif");
+    ImageIcon background_icon = new ImageIcon("src\\scripts\\main\\res\\mapa (1).gif");
     Image background_imagem = background_icon.getImage();
+
+    ImageIcon background_s_icon = new ImageIcon("src\\scripts\\main\\res\\mapa_parado.png");
+    Image background_s_imagem = background_s_icon.getImage();
+
+    ImageIcon heart_icon = new ImageIcon("src\\scripts\\main\\res\\coracao (1).png");
+    Image heart_imagem = heart_icon.getImage();
 
     // Handlers variables
     private static int segundos = 0;
@@ -100,9 +106,15 @@ public class SimpleGame extends JPanel implements ActionListener {
                     g.drawImage(peixe_imagem, spriteX, spriteY, player.getWidth(), player.getHeight(), null);
                     break;
             }
+
         } else {
+            g.drawImage(background_s_imagem, 0, 0, 600, 400, null);
             g.drawImage(ded_imagem, spriteX, spriteY, player.getWidth(), player.getHeight(), null);
+
         }
+
+        heartsHandler(g);
+
         for (GameObject obstacle : obstacles) {
             switch (obstacle.getY()) {
 
@@ -195,9 +207,11 @@ public class SimpleGame extends JPanel implements ActionListener {
 
     private void handleCollision(GameObject obstacle) {
         if (player.isTouching(obstacle) && colisao) {
-            System.out.println("Player está colidindo com o obstáculo");
+            if (colisao) {
+                player.setVidas(player.getVidas() - 1);
+            }
             colisao = false;
-            player.setVidas(player.getVidas() - 1);
+
             System.out.println("Vidas: " + player.getVidas());
             Random rand = new Random();
             pontos -= rand.nextInt(40);
@@ -242,6 +256,18 @@ public class SimpleGame extends JPanel implements ActionListener {
         } else if (player.getY() == 300) {
             animalForm = 2;
         }
+    }
+
+    private void heartsHandler(Graphics g) {
+        for (int i = 0; i < player.getVidas(); i++) {
+            int x = 10 + i * 40; // Adjust the spacing between hearts as needed
+            int y = 360;
+            int width = 32;
+            int height = 32;
+
+            g.drawImage(heart_imagem, x, y, width, height, null);
+        }
+
     }
 
     private int getRandomYPosition(int currentY, int lastY) {
