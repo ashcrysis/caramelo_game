@@ -52,8 +52,11 @@ public class SimpleGame extends JPanel implements ActionListener {
     ImageIcon ded_icon = new ImageIcon("src\\scripts\\main\\res\\ded (1).png");
     Image ded_imagem = ded_icon.getImage();
 
-    ImageIcon background_icon = new ImageIcon("src\\scripts\\main\\res\\mapa-feio.gif");
+    ImageIcon background_icon = new ImageIcon("src\\scripts\\main\\res\\mapa (1).gif");
     Image background_imagem = background_icon.getImage();
+
+    ImageIcon background_s_icon = new ImageIcon("src\\scripts\\main\\res\\mapa_parado.png");
+    Image background_s_imagem = background_s_icon.getImage();
 
     // Handlers variables
     private static int segundos = 0;
@@ -101,7 +104,9 @@ public class SimpleGame extends JPanel implements ActionListener {
                     break;
             }
         } else {
+            g.drawImage(background_s_imagem, 0, 0, 600, 400, null);
             g.drawImage(ded_imagem, spriteX, spriteY, player.getWidth(), player.getHeight(), null);
+
         }
         for (GameObject obstacle : obstacles) {
             switch (obstacle.getY()) {
