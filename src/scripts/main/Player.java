@@ -29,7 +29,6 @@ public class Player extends GameObject implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		System.out.println("entrou no keyevent");
 
 		if (key == KeyEvent.VK_UP && vidas > 0) {
 			String pos = Integer.toString(getY());

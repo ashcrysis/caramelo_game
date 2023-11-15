@@ -121,77 +121,19 @@ public class SimpleGame extends JPanel implements ActionListener {
         }
         // objects handler
 
-        if (obstacle.getX() > targetX && (player.vidas > 0)) {
-            spriteOX = spriteOX - 3;
-            obstacle.setX(spriteOX);
-
-        }
-        if (obstacle.getX() == (targetX)) {
-            spriteOX = 620;
-            Random rand = new Random();
-            spriteOY = rand.nextInt(3) + 1;
-            lastY = spriteOY;
-            obstacleType = spriteOY;
-            String spriteOYaux = Integer.toString(spriteOY) + "00";
-            spriteOY = Integer.parseInt(spriteOYaux);
-
-            while (spriteOY == spriteOY2 && spriteOY != lastY) {
-
-                spriteOY = rand.nextInt(3) + 1;
-                spriteOYaux = Integer.toString(spriteOY) + "00";
-                obstacleType = spriteOY;
-                spriteOY = Integer.parseInt(spriteOYaux);
-            }
-            lastY = spriteOY;
-            obstacle.setY(spriteOY);
-            obstacle.setX(spriteOX);
-
-        }
-
         for (int i = 0; i < obstacles.length; i++) {
             if (player.isTouching(obstacles[i]) && colisao == true) {
                 System.out.println("O jogador está tocando o objeto na posição " + obstacles[i].getY());
             }
 
         }
-        if (obstacle2.getX() > targetX && (player.vidas > 0)) {
-            spriteOX = spriteOX - 3;
-            obstacle2.setX(spriteOX);
+        updateObstaclePosition(obstacle);
+        updateObstaclePosition(obstacle2);
+        // Call for obstacle
+        handleCollision(obstacle);
 
-        }
-        if (obstacle2.getX() == (targetX)) {
-            spriteOX = 620;
-            Random rand = new Random();
-            spriteOY2 = rand.nextInt(3) + 1;
-            lastY2 = spriteOY2;
-            String spriteOYaux2 = Integer.toString(spriteOY2) + "00";
-            obstacle2Type = spriteOY2;
-            spriteOY2 = Integer.parseInt(spriteOYaux2);
-            while (spriteOY2 == spriteOY && spriteOY2 != lastY2) {
-                spriteOY2 = rand.nextInt(3) + 1;
-                spriteOYaux2 = Integer.toString(spriteOY2) + "00";
-                obstacle2Type = spriteOY2;
-                spriteOY2 = Integer.parseInt(spriteOYaux2);
-            }
-            lastY2 = spriteOY2;
-            obstacle2.setY(spriteOY2);
-            obstacle2.setX(spriteOX);
-
-        }
-
-        if (player.isTouching(obstacle) && colisao == true) {
-            System.out.println("Player está colidindo com o obstaculo 1");
-            colisao = false;
-            player.vidas = player.vidas -= 1;
-            System.out.println("Vidas: " + player.vidas);
-        }
-
-        if (player.isTouching(obstacle2) && colisao == true) {
-            System.out.println("Player está colidindo com o obstaculo 2");
-            colisao = false;
-            player.vidas = player.vidas -= 1;
-            System.out.println("Vidas: " + player.vidas);
-        }
+        // Call for obstacle2
+        handleCollision(obstacle2);
 
         // Atualize o valor da JLabel
         scoreHandler score = new scoreHandler();
@@ -232,9 +174,45 @@ public class SimpleGame extends JPanel implements ActionListener {
                 // logica de spawnar gameobstacle
                 colisao = true;
             }
-            // System.out.println(segundos);
 
         }
 
+    }
+
+    private void handleCollision(GameObject obstacle) {
+        if (player.isTouching(obstacle) && colisao) {
+            System.out.println("Player está colidindo com o obstáculo");
+            colisao = false;
+            player.vidas--;
+            System.out.println("Vidas: " + player.vidas);
+        }
+    }
+
+    private void updateObstaclePosition(GameObject obstacle) {
+        if (obstacle.getX() > targetX && player.vidas > 0) {
+            spriteOX -= 3;
+            obstacle.setX(spriteOX);
+        }
+
+        if (obstacle2.getX() == targetX) {
+            spriteOX = 620;
+            Random rand = new Random();
+            spriteOY2 = getRandomYPosition(spriteOY2, lastY2);
+            obstacle2Type = spriteOY2;
+            obstacle2.setY(spriteOY2);
+            obstacle2.setX(spriteOX);
+        }
+    }
+
+    private int getRandomYPosition(int currentY, int lastY) {
+        Random rand = new Random();
+        int newY = rand.nextInt(3) + 1;
+
+        while (newY == currentY && newY != lastY) {
+            newY = rand.nextInt(3) + 1;
+        }
+
+        lastY2 = newY;
+        return Integer.parseInt(Integer.toString(newY) + "00");
     }
 }
