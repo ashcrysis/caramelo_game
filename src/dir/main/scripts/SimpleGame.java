@@ -82,11 +82,6 @@ public class SimpleGame extends JPanel implements ActionListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // background = new JLabel("", new
-        // ImageIcon(getClass().getResource("mapa-feio.gif")), JLabel.CENTER);
-        // background.setPreferredSize(new Dimension(600, 400));
-        // add(background);
-
         // Player logic to switch up colors / forms
         if (player.getVidas() > 0) {
             g.drawImage(background_imagem, 0, 0, 600, 400, null);
@@ -167,10 +162,10 @@ public class SimpleGame extends JPanel implements ActionListener {
             frame.setVisible(true);
             frame.setLayout(null);
             frame.setLocationRelativeTo(null);
-            TocaSom music = new TocaSom();
+            TocaSom sound = new TocaSom();
             game.requestFocus();
 
-            music.startAudioLoop();
+            sound.startAudioLoop("src\\dir\\main\\audio\\game.wav");
         });
 
         while (true) {

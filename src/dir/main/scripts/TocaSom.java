@@ -8,10 +8,10 @@ public class TocaSom {
 
     private Clip audioClip;
 
-    void startAudioLoop() {
+    void startAudioLoop(String path) {
         try {
             AudioInputStream audioInputStream = AudioSystem
-                    .getAudioInputStream(new File("src\\dir\\main\\audio\\game.wav"));
+                    .getAudioInputStream(new File(path));
             audioClip = AudioSystem.getClip();
             audioClip.open(audioInputStream);
             audioClip.loop(Clip.LOOP_CONTINUOUSLY);
