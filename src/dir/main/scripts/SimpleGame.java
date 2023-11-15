@@ -1,4 +1,4 @@
-package scripts.main;
+package dir.main.scripts;
 
 import javax.swing.*;
 
@@ -27,34 +27,34 @@ public class SimpleGame extends JPanel implements ActionListener {
     static GameObject[] obstacles = { obstacle, obstacle2 };
     private JLabel label;
     // Image definitions
-    ImageIcon cachorro_icon = new ImageIcon("src\\scripts\\main\\res\\dog (1).gif");
+    ImageIcon cachorro_icon = new ImageIcon("src\\dir\\main\\res\\dog (1).gif");
     Image cachorro_imagem = cachorro_icon.getImage();
 
-    ImageIcon peixe_icon = new ImageIcon("src\\scripts\\main\\res\\pexinho (1).gif");
+    ImageIcon peixe_icon = new ImageIcon("src\\dir\\main\\res\\pexinho (1).gif");
     Image peixe_imagem = peixe_icon.getImage();
 
-    ImageIcon passaro_icon = new ImageIcon("src\\scripts\\main\\res\\pombo (1).gif");
+    ImageIcon passaro_icon = new ImageIcon("src\\dir\\main\\res\\pombo (1).gif");
     Image passaro_imagem = passaro_icon.getImage();
 
-    ImageIcon pedra_icon = new ImageIcon("src\\scripts\\main\\res\\pedra (1).png");
+    ImageIcon pedra_icon = new ImageIcon("src\\dir\\main\\res\\pedra (1).png");
     Image pedra_imagem = pedra_icon.getImage();
 
-    ImageIcon canoa_icon = new ImageIcon("src\\scripts\\main\\res\\\\canoa (1).gif");
+    ImageIcon canoa_icon = new ImageIcon("src\\dir\\main\\res\\\\canoa (1).gif");
     Image canoa_imagem = canoa_icon.getImage();
 
-    ImageIcon pasaro_icon = new ImageIcon("src\\scripts\\main\\res\\pasaro (1).gif");
+    ImageIcon pasaro_icon = new ImageIcon("src\\dir\\main\\res\\pasaro (1).gif");
     Image pasaro_imagem = pasaro_icon.getImage();
 
-    ImageIcon ded_icon = new ImageIcon("src\\scripts\\main\\res\\ded (1).png");
+    ImageIcon ded_icon = new ImageIcon("src\\dir\\main\\res\\ded (1).png");
     Image ded_imagem = ded_icon.getImage();
 
-    ImageIcon background_icon = new ImageIcon("src\\scripts\\main\\res\\mapa (1).gif");
+    ImageIcon background_icon = new ImageIcon("src\\dir\\main\\res\\mapa (1).gif");
     Image background_imagem = background_icon.getImage();
 
-    ImageIcon background_s_icon = new ImageIcon("src\\scripts\\main\\res\\mapa_parado.png");
+    ImageIcon background_s_icon = new ImageIcon("src\\dir\\main\\res\\mapa_parado.png");
     Image background_s_imagem = background_s_icon.getImage();
 
-    ImageIcon heart_icon = new ImageIcon("src\\scripts\\main\\res\\coracao (1).png");
+    ImageIcon heart_icon = new ImageIcon("src\\dir\\main\\res\\coracao (1).png");
     Image heart_imagem = heart_icon.getImage();
 
     // Handlers variables

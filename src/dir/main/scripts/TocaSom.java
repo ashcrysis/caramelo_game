@@ -1,4 +1,4 @@
-package scripts.main;
+package dir.main.scripts;
 
 import javax.sound.sampled.*;
 import java.io.File;
@@ -11,7 +11,7 @@ public class TocaSom {
     void startAudioLoop() {
         try {
             AudioInputStream audioInputStream = AudioSystem
-                    .getAudioInputStream(new File("src\\scripts\\main\\audio\\game.wav"));
+                    .getAudioInputStream(new File("src\\dir\\main\\audio\\game.wav"));
             audioClip = AudioSystem.getClip();
             audioClip.open(audioInputStream);
             audioClip.loop(Clip.LOOP_CONTINUOUSLY);
