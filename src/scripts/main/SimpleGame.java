@@ -27,25 +27,29 @@ public class SimpleGame extends JPanel implements ActionListener {
     static GameObject obstacle2 = new GameObject(500, 300, 50, 50);
     static GameObject[] obstacles = { obstacle, obstacle2 };
     private JLabel label;
-    ImageIcon cachorro_icon = new ImageIcon("src\\scripts\\main\\dog (1).gif");
+
+    ImageIcon cachorro_icon = new ImageIcon("src\\scripts\\main\\res\\dog (1).gif");
     Image cachorro_imagem = cachorro_icon.getImage();
 
-    ImageIcon peixe_icon = new ImageIcon("src\\scripts\\main\\pexinho (1).gif");
+    ImageIcon peixe_icon = new ImageIcon("src\\scripts\\main\\res\\pexinho (1).gif");
     Image peixe_imagem = peixe_icon.getImage();
 
-    ImageIcon passaro_icon = new ImageIcon("src\\scripts\\main\\pombo (1).gif");
+    ImageIcon passaro_icon = new ImageIcon("src\\scripts\\main\\res\\pombo (1).gif");
     Image passaro_imagem = passaro_icon.getImage();
 
-    ImageIcon pedra_icon = new ImageIcon("src\\scripts\\main\\pedra (1).png");
+    ImageIcon pedra_icon = new ImageIcon("src\\scripts\\main\\res\\pedra (1).png");
     Image pedra_imagem = pedra_icon.getImage();
 
-    ImageIcon canoa_icon = new ImageIcon("src\\scripts\\main\\canoa (1).gif");
+    ImageIcon canoa_icon = new ImageIcon("src\\scripts\\main\\res\\\\canoa (1).gif");
     Image canoa_imagem = canoa_icon.getImage();
 
-    ImageIcon pasaro_icon = new ImageIcon("src\\scripts\\main\\pasaro (1).gif");
+    ImageIcon pasaro_icon = new ImageIcon("src\\scripts\\main\\res\\pasaro (1).gif");
     Image pasaro_imagem = pasaro_icon.getImage();
 
-    ImageIcon background_icon = new ImageIcon("src\\scripts\\main\\mapa-feio.gif");
+    ImageIcon ded_icon = new ImageIcon("src\\scripts\\main\\res\\ded (1).png");
+    Image ded_imagem = ded_icon.getImage();
+
+    ImageIcon background_icon = new ImageIcon("src\\scripts\\main\\res\\mapa-feio.gif");
     Image background_imagem = background_icon.getImage();
     // Handlers variables
     private static int segundos = 0;
@@ -76,9 +80,11 @@ public class SimpleGame extends JPanel implements ActionListener {
         // ImageIcon(getClass().getResource("mapa-feio.gif")), JLabel.CENTER);
         // background.setPreferredSize(new Dimension(600, 400));
         // add(background);
-        g.drawImage(background_imagem, 0, 0, 600, 400, null);
+
         // Player logic to switch up colors / forms
-        if (player.vidas > 0) {
+        if (player.getVidas() > 0) {
+            g.drawImage(background_imagem, 0, 0, 600, 400, null);
+
             switch (animalForm) {
                 case 0:
                     g.drawImage(cachorro_imagem, spriteX, spriteY, player.getWidth(), player.getHeight(), null);
@@ -90,6 +96,8 @@ public class SimpleGame extends JPanel implements ActionListener {
                     g.drawImage(peixe_imagem, spriteX, spriteY, player.getWidth(), player.getHeight(), null);
                     break;
             }
+        } else {
+            g.drawImage(ded_imagem, spriteX, spriteY, player.getWidth(), player.getHeight(), null);
         }
         for (GameObject obstacle : obstacles) {
             switch (obstacle.getY()) {
@@ -114,6 +122,11 @@ public class SimpleGame extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        if (player.getVidas() <= 0) {
+            showGameOverDialog();
+
+        }
         targetY = player.targetY;
 
         updatePlayerPosition(targetY);
@@ -133,7 +146,7 @@ public class SimpleGame extends JPanel implements ActionListener {
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Simple Game");
+            JFrame frame = new JFrame("Caramelo Adventures : Três espiritos, uma missão");
             SimpleGame game = new SimpleGame();
             frame.add(game);
             game.addKeyListener(player);
@@ -145,25 +158,31 @@ public class SimpleGame extends JPanel implements ActionListener {
 
         });
 
-        while (player.vidas > 0) {
+        while (true) {
+            if (player.getVidas() <= 0) {
+                segundos = 0;
+                pontos = 0;
+                colisao = false;
+            }
+
+            System.out.println("Vida existe");
             try {
-                Thread.sleep(1000); // Espera 1 segundo (1000 milissegundos)
+                Thread.sleep(1000); // Wait for 1 second (1000 milliseconds)
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
             segundos++;
 
-            if (segundos % 1 == 0) {
-                pontos += 50;
-
+            if (segundos % 2 == 0) {
+                Random rand = new Random();
+                pontos += 50 + rand.nextInt(55);
             }
 
             if (segundos % 2 == 0) {
-                // logica de spawnar gameobstacle
+                // Logic to spawn game obstacle
                 colisao = true;
             }
-
         }
 
     }
@@ -172,13 +191,15 @@ public class SimpleGame extends JPanel implements ActionListener {
         if (player.isTouching(obstacle) && colisao) {
             System.out.println("Player está colidindo com o obstáculo");
             colisao = false;
-            player.vidas--;
-            System.out.println("Vidas: " + player.vidas);
+            player.setVidas(player.getVidas() - 1);
+            System.out.println("Vidas: " + player.getVidas());
+            Random rand = new Random();
+            pontos -= rand.nextInt(40);
         }
     }
 
     private void updateObstaclePosition(GameObject obstacle, GameObject otherObstacle, int lastY, int speed) {
-        if (obstacle.getX() > targetX && player.vidas > 0) {
+        if (obstacle.getX() > targetX && player.getVidas() > 0) {
             obstacle.setX(obstacle.getX() - speed);
         }
 
@@ -229,4 +250,32 @@ public class SimpleGame extends JPanel implements ActionListener {
         return Integer.parseInt(Integer.toString(newY) + "00");
     }
 
+    private void showGameOverDialog() {
+        int option = JOptionPane.showOptionDialog(
+                this,
+                "You are dead!",
+                "Game Over",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                new Object[] { "Restart", "Exit" },
+                "Restart");
+
+        if (option == JOptionPane.YES_OPTION) {
+            restartGame();
+        } else {
+            System.exit(0);
+        }
+    }
+
+    private void restartGame() {
+        // Reset game variables and start a new game
+        player.setVidas(3);
+        segundos = 0;
+        pontos = 0;
+        colisao = true;
+
+        // Repaint the game
+        repaint();
+    }
 }
