@@ -1,11 +1,13 @@
 package scripts;
 
-public class handler {
+import scripts.main.GameObject;
+
+public class debugger {
 
 public static void main(String[] args) {
 	// Create two GameObject instances
-	GameObject object1 = new GameObject(10, 10, 25, 10);
-	GameObject object2 = new GameObject(25, 25, 30, 30);
+	GameObject object1 = new GameObject(10, 10, 25, 25);
+	GameObject object2 = new GameObject(25, 25, 30, 0);
 
 	// Check if object1 is touching object2
 	if (object1.isTouching(object2)) {
