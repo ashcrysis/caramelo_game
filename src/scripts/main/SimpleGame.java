@@ -28,7 +28,14 @@ public class SimpleGame extends JPanel implements ActionListener {
     static GameObject[] obstacles = { obstacle, obstacle2 };
     private JLabel label;
     private JLabel background;
+    ImageIcon cachorro_icon = new ImageIcon("src\\scripts\\main\\dog (1).gif");
+    Image cachorro_imagem = cachorro_icon.getImage();
 
+    ImageIcon peixe_icon = new ImageIcon("src\\scripts\\main\\pexinho (1).gif");
+    Image peixe_imagem = peixe_icon.getImage();
+
+    ImageIcon passaro_icon = new ImageIcon("src\\scripts\\main\\pombo (1).gif");
+    Image passaro_imagem = passaro_icon.getImage();
     // Handlers variables
     private static int segundos = 0;
     private static int pontos = 0;
@@ -60,21 +67,19 @@ public class SimpleGame extends JPanel implements ActionListener {
         // add(background);
 
         // Player logic to switch up colors / forms
-        switch (animalForm) {
-            case 0:
-                g.setColor(Color.RED);
-                g.fillRect(spriteX, spriteY, player.getWidth(), player.getHeight());
-                break;
-            case 1:
-                g.setColor(Color.GREEN);
-                g.fillOval(spriteX, spriteY, player.getWidth(), player.getHeight());
-                break;
-            case 2:
-                g.setColor(Color.BLUE);
-                g.fillOval(spriteX, spriteY, player.getWidth(), player.getHeight());
-                break;
+        if (player.vidas > 0) {
+            switch (animalForm) {
+                case 0:
+                    g.drawImage(cachorro_imagem, spriteX, spriteY, player.getWidth(), player.getHeight(), null);
+                    break;
+                case 1:
+                    g.drawImage(passaro_imagem, spriteX, spriteY, player.getWidth(), player.getHeight(), null);
+                    break;
+                case 2:
+                    g.drawImage(peixe_imagem, spriteX, spriteY, player.getWidth(), player.getHeight(), null);
+                    break;
+            }
         }
-
         for (GameObject obstacle : obstacles) {
             switch (obstacle.getY()) {
 
