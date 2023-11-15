@@ -1,6 +1,13 @@
 package dir.main.scripts;
 
 public class scoreHandler {
+	/**
+	 * The score function increases the score by 50 every 2 seconds.
+	 * 
+	 * @return The method is not returning anything. It has a return type of `void`,
+	 *         which means it does
+	 *         not return a value.
+	 */
 	public static int score() {
 
 		int segundos = 0;

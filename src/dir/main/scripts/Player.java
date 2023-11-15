@@ -3,6 +3,11 @@ package dir.main.scripts;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * The Player class extends the GameObject class and implements the KeyListener
+ * interface, and it has
+ * properties for lives, y positions, and target y position.
+ */
 public class Player extends GameObject implements KeyListener {
 	public int vidas = 3;
 	private int[] yPositions = { 100, 200, 300 };
@@ -26,6 +31,14 @@ public class Player extends GameObject implements KeyListener {
 		// throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
 	}
 
+	/**
+	 * The keyPressed function handles the user pressing the up or down arrow keys
+	 * and updates the targetY
+	 * variable accordingly.
+	 * 
+	 * @param e The parameter "e" is of type KeyEvent and represents the key event
+	 *          that occurred.
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
