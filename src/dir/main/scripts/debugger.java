@@ -1,7 +1,5 @@
 package dir.main.scripts;
 
-import dir.main.scripts.GameObject;
-
 public class debugger {
 
 	public static void main(String[] args) {
