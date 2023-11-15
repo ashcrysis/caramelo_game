@@ -1,4 +1,4 @@
-package scripts;
+package scripts.main;
 
 public class scoreHandler {
 	public static int score() {

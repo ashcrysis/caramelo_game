@@ -1,4 +1,4 @@
-package scripts;
+package scripts.main;
 
 public class Player extends GameObject {
     public int vidas = 3;

@@ -1,6 +1,8 @@
 package scripts;
 
-public class handler {
+import scripts.main.GameObject;
+
+public class debugger {
 
 public static void main(String[] args) {
 	// Create two GameObject instances

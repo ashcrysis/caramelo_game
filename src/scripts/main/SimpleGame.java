@@ -1,28 +1,34 @@
-package scripts;import javax.swing.*;
+package scripts.main;import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class SimpleGame extends JPanel implements ActionListener {
+	//player related var's
     private int targetY = 100;
     private int targetX = -70;
     private int animalForm = 0;
     private int lastY;
     private int lastY2;
+    static Player player = new Player(100, 100, 50, 50);
+    private int spriteX = player.getX();
+    private int spriteY = player.getY();
+    
+    //scene related var's
     private Timer timer;
     private int obstacle2Type = 3;
     private int obstacleType  =  1;
     static GameObject obstacle = new GameObject(500,100,50,50);
     static GameObject obstacle2 = new GameObject(500,300,50,50);
-    static Player player = new Player(100, 100, 50, 50);
     static GameObject[] obstacles = {obstacle , obstacle2};
-    private int spriteX = player.getX();
     private int spriteOX = obstacle.getX();
     private int spriteOY = obstacle.getY();
     private int spriteOY2 = obstacle2.getY();
-    private int spriteY = player.getY();
     private JLabel label;
+    
+    //handlers var's
     private static int segundos = 0;
     private static int pontos = 0;
     private static boolean colisao = true;

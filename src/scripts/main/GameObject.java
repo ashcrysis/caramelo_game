@@ -1,4 +1,4 @@
-package scripts;
+package scripts.main;
 
 public class GameObject {
     private int x; // X coordinate
