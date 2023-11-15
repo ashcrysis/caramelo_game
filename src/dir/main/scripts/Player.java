@@ -1,4 +1,4 @@
-package scripts.main;
+package dir.main.scripts;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
