@@ -33,6 +33,7 @@ public class SimpleGame extends JPanel implements ActionListener {
     // rock, canoe, bird, finger, background, and heart. These images are being
     // loaded from specific file
     // paths in the project's directory.
+
     ImageIcon cachorro_icon = new ImageIcon("src\\dir\\main\\res\\dog (1).gif");
     Image cachorro_imagem = cachorro_icon.getImage();
 
@@ -75,7 +76,7 @@ public class SimpleGame extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(600, 400));
         setFocusable(true);
 
-        label = new JLabel("Posição: " + player.getY());
+        label = new JLabel();
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setVerticalAlignment(SwingConstants.TOP);
 
@@ -173,6 +174,10 @@ public class SimpleGame extends JPanel implements ActionListener {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Caramelo Adventures : Três espiritos, uma missão!");
+            // Load image from the classpath
+
+            // Set the icon image
+
             SimpleGame game = new SimpleGame();
             frame.add(game);
             game.addKeyListener(player);
@@ -183,7 +188,6 @@ public class SimpleGame extends JPanel implements ActionListener {
             frame.setLocationRelativeTo(null);
             TocaSom sound = new TocaSom();
             game.requestFocus();
-
             sound.startAudioLoop("game.wav");
         });
 
