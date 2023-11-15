@@ -27,7 +27,6 @@ public class SimpleGame extends JPanel implements ActionListener {
     static GameObject obstacle2 = new GameObject(500, 300, 50, 50);
     static GameObject[] obstacles = { obstacle, obstacle2 };
     private JLabel label;
-    private JLabel background;
     ImageIcon cachorro_icon = new ImageIcon("src\\scripts\\main\\dog (1).gif");
     Image cachorro_imagem = cachorro_icon.getImage();
 
@@ -36,6 +35,18 @@ public class SimpleGame extends JPanel implements ActionListener {
 
     ImageIcon passaro_icon = new ImageIcon("src\\scripts\\main\\pombo (1).gif");
     Image passaro_imagem = passaro_icon.getImage();
+
+    ImageIcon pedra_icon = new ImageIcon("src\\scripts\\main\\pedra (1).png");
+    Image pedra_imagem = pedra_icon.getImage();
+
+    ImageIcon canoa_icon = new ImageIcon("src\\scripts\\main\\canoa (1).gif");
+    Image canoa_imagem = canoa_icon.getImage();
+
+    ImageIcon pasaro_icon = new ImageIcon("src\\scripts\\main\\pasaro (1).gif");
+    Image pasaro_imagem = pasaro_icon.getImage();
+
+    ImageIcon background_icon = new ImageIcon("src\\scripts\\main\\mapa-feio.gif");
+    Image background_imagem = background_icon.getImage();
     // Handlers variables
     private static int segundos = 0;
     private static int pontos = 0;
@@ -65,7 +76,7 @@ public class SimpleGame extends JPanel implements ActionListener {
         // ImageIcon(getClass().getResource("mapa-feio.gif")), JLabel.CENTER);
         // background.setPreferredSize(new Dimension(600, 400));
         // add(background);
-
+        g.drawImage(background_imagem, 0, 0, 600, 400, null);
         // Player logic to switch up colors / forms
         if (player.vidas > 0) {
             switch (animalForm) {
@@ -84,16 +95,16 @@ public class SimpleGame extends JPanel implements ActionListener {
             switch (obstacle.getY()) {
 
                 case 100:
-                    g.setColor(Color.DARK_GRAY);
-                    g.fillRect(obstacle.getX(), obstacle.getY(), obstacle.getWidth(), obstacle.getHeight());
+                    g.drawImage(pasaro_imagem, obstacle.getX(), obstacle.getY(), obstacle.getWidth(),
+                            obstacle.getHeight(), null);
                     break;
                 case 200:
-                    g.setColor(Color.ORANGE);
-                    g.fillRect(obstacle.getX(), obstacle.getY(), obstacle.getWidth(), obstacle.getHeight());
+                    g.drawImage(pedra_imagem, obstacle.getX(), obstacle.getY(), obstacle.getWidth(),
+                            obstacle.getHeight(), null);
                     break;
                 case 300:
-                    g.setColor(Color.CYAN);
-                    g.fillRect(obstacle.getX(), obstacle.getY(), obstacle.getWidth(), obstacle.getHeight());
+                    g.drawImage(canoa_imagem, obstacle.getX(), obstacle.getY(), obstacle.getWidth(),
+                            obstacle.getHeight(), null);
                     break;
 
             }
