@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Random;
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 
 public class SimpleGame extends JPanel implements ActionListener {
     // Player related variables
@@ -27,7 +30,7 @@ public class SimpleGame extends JPanel implements ActionListener {
     static GameObject obstacle2 = new GameObject(500, 300, 50, 50);
     static GameObject[] obstacles = { obstacle, obstacle2 };
     private JLabel label;
-
+    // Image definitions
     ImageIcon cachorro_icon = new ImageIcon("src\\scripts\\main\\res\\dog (1).gif");
     Image cachorro_imagem = cachorro_icon.getImage();
 
@@ -51,6 +54,7 @@ public class SimpleGame extends JPanel implements ActionListener {
 
     ImageIcon background_icon = new ImageIcon("src\\scripts\\main\\res\\mapa-feio.gif");
     Image background_imagem = background_icon.getImage();
+
     // Handlers variables
     private static int segundos = 0;
     private static int pontos = 0;
@@ -146,7 +150,7 @@ public class SimpleGame extends JPanel implements ActionListener {
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Caramelo Adventures : Três espiritos, uma missão");
+            JFrame frame = new JFrame("Caramelo Adventures : Três espiritos, uma missão!");
             SimpleGame game = new SimpleGame();
             frame.add(game);
             game.addKeyListener(player);
@@ -155,7 +159,10 @@ public class SimpleGame extends JPanel implements ActionListener {
             frame.setVisible(true);
             frame.setLayout(null);
             frame.setLocationRelativeTo(null);
+            TocaSom music = new TocaSom();
+            game.requestFocus();
 
+            music.startAudioLoop();
         });
 
         while (true) {
@@ -165,9 +172,8 @@ public class SimpleGame extends JPanel implements ActionListener {
                 colisao = false;
             }
 
-            System.out.println("Vida existe");
             try {
-                Thread.sleep(1000); // Wait for 1 second (1000 milliseconds)
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -274,8 +280,12 @@ public class SimpleGame extends JPanel implements ActionListener {
         segundos = 0;
         pontos = 0;
         colisao = true;
-
+        obstacle.setX(620);
+        obstacle2.setX(620);
+        updateObstaclePosition(obstacle, obstacle2, lastY, 6);
+        updateObstaclePosition(obstacle2, obstacle, lastY2, 6);
         // Repaint the game
         repaint();
     }
+
 }
