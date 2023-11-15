@@ -8,6 +8,12 @@ public class GameObject {
 	private int type;
 	// Constructor
 
+	// The `public GameObject(int x, int y, int width, int height)` is a constructor
+	// for the `GameObject`
+	// class. It is used to create a new instance of the `GameObject` class and
+	// initialize its properties
+	// (`x`, `y`, `width`, and `height`) with the values passed as arguments to the
+	// constructor.
 	public GameObject(int x, int y, int width, int height) {
 		this.x = x;
 		this.y = y;
@@ -55,7 +61,11 @@ public class GameObject {
 		this.y = y;
 	}
 
-	// Method to check if this object is touching another object
+	// The `isTouching` method is used to check if the current `GameObject` is
+	// touching another
+	// `GameObject`. It takes another `GameObject` as a parameter and checks if
+	// their bounding boxes
+	// intersect.
 	public boolean isTouching(GameObject otherObject) {
 		// Check if this object's bounding box intersects with the other object's
 		// bounding box

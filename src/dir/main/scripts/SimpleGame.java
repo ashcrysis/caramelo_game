@@ -26,7 +26,13 @@ public class SimpleGame extends JPanel implements ActionListener {
     static GameObject obstacle2 = new GameObject(500, 300, 50, 50);
     static GameObject[] obstacles = { obstacle, obstacle2 };
     private JLabel label;
+
     // Image definitions
+    // The below code is creating ImageIcons and Images for various objects such as
+    // a dog, fish, bird,
+    // rock, canoe, bird, finger, background, and heart. These images are being
+    // loaded from specific file
+    // paths in the project's directory.
     ImageIcon cachorro_icon = new ImageIcon("src\\dir\\main\\res\\dog (1).gif");
     Image cachorro_imagem = cachorro_icon.getImage();
 
@@ -79,6 +85,19 @@ public class SimpleGame extends JPanel implements ActionListener {
 
     }
 
+    /**
+     * This function is responsible for painting the game components on the screen,
+     * including the player,
+     * obstacles, and background images.
+     * 
+     * @param g The parameter "g" is an instance of the Graphics class, which is
+     *          used for drawing
+     *          graphics on the component. It provides methods for drawing images,
+     *          shapes, and text on the
+     *          component's surface. In this code, it is used to draw images on the
+     *          component based on certain
+     *          conditions and positions.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -165,7 +184,7 @@ public class SimpleGame extends JPanel implements ActionListener {
             TocaSom sound = new TocaSom();
             game.requestFocus();
 
-            sound.startAudioLoop("src\\dir\\main\\audio\\game.wav");
+            sound.startAudioLoop("game.wav");
         });
 
         while (true) {
@@ -196,6 +215,15 @@ public class SimpleGame extends JPanel implements ActionListener {
 
     }
 
+    /**
+     * The function handles collisions between the player and an obstacle,
+     * decreasing the player's
+     * lives and subtracting points if a collision occurs.
+     * 
+     * @param obstacle The "obstacle" parameter is a GameObject representing the
+     *                 object that the player
+     *                 has collided with.
+     */
     private void handleCollision(GameObject obstacle) {
         if (player.isTouching(obstacle) && colisao) {
             if (colisao) {
@@ -209,6 +237,22 @@ public class SimpleGame extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * The function updates the position of an obstacle in a game, ensuring it moves
+     * towards a target
+     * position and generates a new random Y position if it reaches the target.
+     * 
+     * @param obstacle      The obstacle object that needs to be updated.
+     * @param otherObstacle The "otherObstacle" parameter is a reference to another
+     *                      GameObject
+     *                      representing another obstacle in the game.
+     * @param lastY         The lastY parameter represents the previous Y position
+     *                      of the obstacle. It is used
+     *                      to generate a new random Y position for the obstacle.
+     * @param speed         The "speed" parameter represents the speed at which the
+     *                      obstacle moves
+     *                      horizontally.
+     */
     private void updateObstaclePosition(GameObject obstacle, GameObject otherObstacle, int lastY, int speed) {
         if (obstacle.getX() > targetX && player.getVidas() > 0) {
             obstacle.setX(obstacle.getX() - speed);
@@ -231,6 +275,15 @@ public class SimpleGame extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * The function updates the player's position based on a target Y coordinate and
+     * changes the animal
+     * form based on the player's Y coordinate.
+     * 
+     * @param targetY The targetY parameter is the desired y-coordinate that the
+     *                player should move
+     *                towards.
+     */
     private void updatePlayerPosition(int targetY) {
         if (player.getY() < targetY) {
             spriteY += 5;
@@ -249,6 +302,15 @@ public class SimpleGame extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * The `heartsHandler` function draws hearts on the screen based on the number
+     * of lives the player
+     * has.
+     * 
+     * @param g The parameter "g" is of type Graphics and represents the graphics
+     *          context for drawing on
+     *          the screen. It is used to draw the heart image on the screen.
+     */
     private void heartsHandler(Graphics g) {
         for (int i = 0; i < player.getVidas(); i++) {
             int x = 10 + i * 40; // Adjust the spacing between hearts as needed
@@ -261,6 +323,19 @@ public class SimpleGame extends JPanel implements ActionListener {
 
     }
 
+    /**
+     * The getRandomYPosition function generates a random y-position that is
+     * different from the current
+     * y-position and the last y-position.
+     * 
+     * @param currentY The currentY parameter represents the current Y position. It
+     *                 is used to ensure
+     *                 that the new Y position generated is different from the
+     *                 current Y position.
+     * @param lastY    The lastY parameter is the previous Y position that was
+     *                 generated.
+     * @return The method is returning an integer value.
+     */
     private int getRandomYPosition(int currentY, int lastY) {
         Random rand = new Random();
         int newY = rand.nextInt(3) + 1;
@@ -273,6 +348,11 @@ public class SimpleGame extends JPanel implements ActionListener {
         return Integer.parseInt(Integer.toString(newY) + "00");
     }
 
+    /**
+     * The function shows a dialog box with a message "You are dead!" and two
+     * options "Restart" and
+     * "Exit", and performs different actions based on the user's choice.
+     */
     private void showGameOverDialog() {
         int option = JOptionPane.showOptionDialog(
                 this,
@@ -290,6 +370,10 @@ public class SimpleGame extends JPanel implements ActionListener {
             System.exit(0);
         }
     }
+
+    /**
+     * The restartGame() function resets game variables and starts a new game.
+     */
 
     private void restartGame() {
         // Reset game variables and start a new game

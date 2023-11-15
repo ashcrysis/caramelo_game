@@ -5,7 +5,10 @@ import dir.main.scripts.GameObject;
 public class debugger {
 
 	public static void main(String[] args) {
-		// Create two GameObject instances
+		// The code is creating two instances of the `GameObject` class, named `object1`
+		// and `object2`. The
+		// constructor of the `GameObject` class takes four parameters: `x`, `y`,
+		// `width`, and `height`.
 		GameObject object1 = new GameObject(10, 10, 25, 25);
 		GameObject object2 = new GameObject(25, 25, 30, 0);
 
