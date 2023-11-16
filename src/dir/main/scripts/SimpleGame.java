@@ -33,6 +33,8 @@ public class SimpleGame extends JPanel implements ActionListener {
     // rock, canoe, bird, finger, background, and heart. These images are being
     // loaded from specific file
     // paths in the project's directory.
+    static ImageIcon jogo_icon = new ImageIcon("src\\dir\\main\\res\\icon (1).gif");
+    static Image jogo_imagem = jogo_icon.getImage();
 
     ImageIcon cachorro_icon = new ImageIcon("src\\dir\\main\\res\\dog (1).gif");
     Image cachorro_imagem = cachorro_icon.getImage();
@@ -138,8 +140,8 @@ public class SimpleGame extends JPanel implements ActionListener {
                             obstacle.getHeight(), null);
                     break;
                 case 300:
-                    g.drawImage(canoa_imagem, obstacle.getX(), obstacle.getY(), obstacle.getWidth(),
-                            obstacle.getHeight(), null);
+                    g.drawImage(canoa_imagem, obstacle.getX(), obstacle.getY(), 100,
+                            100, null);
                     break;
 
             }
@@ -182,6 +184,7 @@ public class SimpleGame extends JPanel implements ActionListener {
             frame.setVisible(true);
             frame.setLayout(null);
             frame.setLocationRelativeTo(null);
+            frame.setIconImage(jogo_imagem);
             TocaSom sound = new TocaSom();
             game.requestFocus();
             sound.startAudioLoop("game.wav");
