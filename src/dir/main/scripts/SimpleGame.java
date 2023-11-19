@@ -43,10 +43,10 @@ public class SimpleGame extends JPanel implements ActionListener {
     ImageIcon passaro_icon = new ImageIcon("src\\dir\\main\\res\\pombo (1).gif");
     Image passaro_imagem = passaro_icon.getImage();
 
-    ImageIcon pedra_icon = new ImageIcon("src\\dir\\main\\res\\pedra (1).png");
+    ImageIcon pedra_icon = new ImageIcon("src\\dir\\main\\res\\vaco.gif");
     Image pedra_imagem = pedra_icon.getImage();
 
-    ImageIcon canoa_icon = new ImageIcon("src\\dir\\main\\res\\\\barco.gif");
+    ImageIcon canoa_icon = new ImageIcon("src\\dir\\main\\res\\barco.gif");
     Image canoa_imagem = canoa_icon.getImage();
 
     ImageIcon pasaro_icon = new ImageIcon("src\\dir\\main\\res\\pasaro (1).gif");
@@ -134,8 +134,8 @@ public class SimpleGame extends JPanel implements ActionListener {
                             obstacle.getHeight(), null);
                     break;
                 case 200:
-                    g.drawImage(pedra_imagem, obstacle.getX(), obstacle.getY(), obstacle.getWidth(),
-                            obstacle.getHeight(), null);
+                    g.drawImage(pedra_imagem, obstacle.getX(), obstacle.getY()-10, 148,
+                            obstacle.getHeight()+20, null);
                     break;
                 case 300:
                     g.drawImage(canoa_imagem, obstacle.getX(), obstacle.getY() - 50, 150,
