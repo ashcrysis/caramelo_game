@@ -110,7 +110,7 @@ public class SimpleGame extends JPanel implements ActionListener {
 
             switch (animalForm) {
                 case 0:
-                    g.drawImage(cachorro_imagem, spriteX, spriteY, 74, 74, null);
+                    g.drawImage(cachorro_imagem, spriteX, spriteY, player.getWidth(), player.getHeight(), null);
                     break;
                 case 1:
                     g.drawImage(passaro_imagem, spriteX, spriteY, player.getWidth(), player.getHeight(), null);
@@ -140,8 +140,8 @@ public class SimpleGame extends JPanel implements ActionListener {
                             obstacle.getHeight(), null);
                     break;
                 case 300:
-                g.drawImage(canoa_imagem, obstacle.getX(), obstacle.getY() - 50, 150,
-                150, null);
+                    g.drawImage(canoa_imagem, obstacle.getX(), obstacle.getY() - 50, 150,
+                            150, null);
                     break;
 
             }
