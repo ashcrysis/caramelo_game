@@ -194,6 +194,8 @@ public class SimpleGame extends JPanel implements ActionListener {
         while (true) {
             if (player.getVidas() <= 0) {
                 segundos = 0;
+                ArmazenamentoPontuacao pontosHandler = new ArmazenamentoPontuacao();
+                pontosHandler.armazenarMaiorPontuacao(pontos);
                 pontos = 0;
                 colisao = false;
             }
